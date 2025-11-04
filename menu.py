@@ -46,27 +46,41 @@ def add_movie(conn, title, director, year, rating):
 
 
 
-def display_all_movies(conn, movie, cursor):
+def display_all_movies(conn):
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM movies')
     all_movies = cursor.fetchall()
     print("All movies:")
-    for movie in all_movies:
-        print(movie)
+    for movies in all_movies:
+        print(movies)
     conn.commit()
 
 
 
 def update_movie_rating(conn, title, new_rating):
-    # TODO: Update the rating of a specified movie
-    pass
+    cursor = conn.cursor()
+    cursor.execute('''
+        UPDATE movies
+        SET rating = ?
+        WHERE title = ?
+    ''', (new_rating, title))
+    print(f"Updated rating for '{title}' to {new_rating}.")
+    conn.commit()
+
 
 
 
 def delete_movie(conn, title):
-    # TODO: Delete a specified movie from the database
-    pass
-
+    cursor = conn.cursor()
+    cursor.execute('''
+        DELETE FROM movies
+        WHERE title = ?
+    ''', (title,))
+    if cursor.rowcount == 0:
+        print("No movie found with that title.")
+    else:
+        print(f"Movie '{title}' deleted successfully.")
+    conn.commit()
 
 
 def find_movies_by_director(conn, director):
@@ -138,9 +152,11 @@ def main():
 
             else:
                 print("Invalid choice. Please try again.")
-        display_all_movies()
+ 
+        update_movie_rating()
         conn.commit()
         conn.close()
+        
     else:
         print("Error! Cannot create the database connection.")
 if __name__ == '__main__':
