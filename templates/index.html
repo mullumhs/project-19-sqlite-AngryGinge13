@@ -1,10 +1,12 @@
 <h1>Movie Database</h1>
 
 <a href="{{ url_for('add_movie') }}">Add a New Movie</a>
+<a href="{{ url_for('edit_movie', id=movie.id) }}">Edit</a>
 <style>
   body {
     font-family: "Segoe UI", sans-serif;
-    background-image: url("http://static.wixstatic.com/media/ccf745_4c9601d6a7ee40abb48a4fabe220e935~mv2.jpg/v1/fill/w_280,h_335,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/clivebridges.jpg");
+    background: url("http://static.wixstatic.com/media/ccf745_4c9601d6a7ee40abb48a4fabe220e935~mv2.jpg/v1/fill/w_280,h_335,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/clivebridges.jpg");
+    background-repeat: no-repeat;
     color: #f7f7f7;
     align-items: center;
   }
